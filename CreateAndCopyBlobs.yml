@@ -1,0 +1,43 @@
+trigger:
+- main  # Adjust according to your branch trigger
+
+#incase we want diffrent blob amount and batch size for copy/create we can add an override or specificy per job vars
+variables:
+  RESOURCE_GROUP: 'work-branch-test'
+  CONTAINER_NAME: '100blobs'
+  BLOB_BATCH_SIZE: 10
+  BLOB_AMOUNT: 100
+  TIMEOUT: 600
+
+stages:
+  - stage: Create
+    jobs:
+      - job: CreateBlobs
+        displayName: 'Create Blobs in batches in source'
+        pool:
+          name: Default  
+
+        steps:
+
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'Azure subscription 1(3b6ddfaa-2788-46ca-b82d-c51e30360c61)'
+            scriptType: 'ps'
+            scriptLocation: 'scriptPath'
+            scriptPath: '$(Build.SourcesDirectory)/CreateBlobScript.ps1'
+
+  - stage: Copy
+    jobs:
+      - job: CopyBlobs  
+        displayName: 'Copy Blobs in batches from source to dest' 
+        pool:
+          name: Default  
+
+        steps:
+
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'Azure subscription 1(3b6ddfaa-2788-46ca-b82d-c51e30360c61)'
+            scriptType: 'ps'
+            scriptLocation: 'scriptPath'
+            scriptPath: '$(Build.SourcesDirectory)/CopyBlobScript.ps1'

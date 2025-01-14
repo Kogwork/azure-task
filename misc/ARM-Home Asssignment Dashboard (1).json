@@ -1,0 +1,814 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dashboardName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 260
+    },
+    "dashboardLocation": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]"
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.PortalServices/dashboards",
+      "apiVersion": "2024-04-01-preview",
+      "name": "[parameters('dashboardName')]",
+      "location": "[parameters('dashboardLocation')]",
+      "tags": {},
+      "properties": {
+        "title": "Home Asssignment Dashboard",
+        "pages": [
+          {
+            "title": "New 1",
+            "tiles": [
+              {
+                "data": {
+                  "query": "resources\n| project id, name, type, location, subscriptionId, resourceGroup, kind, tags\n| sort by (tolower(tostring(name))) asc\n| limit 10",
+                  "kind": "arg"
+                },
+                "visualization": {
+                  "type": "table",
+                  "options": {}
+                },
+                "title": "All resources",
+                "subtitle": "All subscriptions",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 3,
+                  "height": 15
+                }
+              },
+              {
+                "data": {
+                  "source": "inline",
+                  "content": ""
+                },
+                "title": "Storage2nadl6mxkbuvu",
+                "subtitle": "Storage2nadl6mxkbuvu's General Info",
+                "type": "MarkdownTile",
+                "layout": {
+                  "x": 3,
+                  "y": 0,
+                  "width": 4,
+                  "height": 2
+                }
+              },
+              {
+                "data": {
+                  "source": "inline",
+                  "content": ""
+                },
+                "title": "ubuntuVM",
+                "subtitle": "ubuntuVM's General Info",
+                "type": "MarkdownTile",
+                "layout": {
+                  "x": 15,
+                  "y": 0,
+                  "width": 13,
+                  "height": 1
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "UsedCapacity",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "area",
+                  "options": {}
+                },
+                "title": "Avg Used Capacity",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 7,
+                  "y": 4,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "Egress",
+                      "aggregationType": "sum",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    },
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "Ingress",
+                      "aggregationType": "sum",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "bar",
+                  "options": {}
+                },
+                "title": "Egress & Ingress",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 11,
+                  "y": 0,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.compute/virtualmachines",
+                      "name": "Percentage CPU",
+                      "aggregationType": "max",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.compute/virtualmachines/ubuntuvm"
+                      }
+                    },
+                    {
+                      "namespace": "microsoft.compute/virtualmachines",
+                      "name": "Percentage CPU",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.compute/virtualmachines/ubuntuvm"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {}
+                },
+                "title": "Percentage CPU for ubuntuVM",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 15,
+                  "y": 1,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.compute/virtualmachines",
+                      "name": "Available Memory Bytes",
+                      "aggregationType": "sum",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.compute/virtualmachines/ubuntuvm"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "area",
+                  "options": {}
+                },
+                "title": "Avg Available Memory Bytes (Preview) for ubuntuVM",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 19,
+                  "y": 1,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "name": "OS Disk IOPS Consumed Percentage",
+                      "aggregationType": "avg",
+                      "namespace": "microsoft.compute/virtualmachines",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourceGroups/WORK-BRANCH-TEST/providers/Microsoft.Compute/virtualMachines/UBUNTUVM"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {}
+                },
+                "title": "Avg OS Disk IOPS Consumed Percentage for UBUNTUVM",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 23,
+                  "y": 1,
+                  "width": 5,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "SuccessE2ELatency",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    },
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "SuccessE2ELatency",
+                      "aggregationType": "max",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {}
+                },
+                "title": "Avg Success E2E Latency for storage2nadl6mxkbuvu",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 11,
+                  "y": 4,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts/blobservices",
+                      "name": "BlobCount",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "card",
+                  "options": {
+                    "hideLegend": false
+                  }
+                },
+                "title": "Blob Count",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 3,
+                  "y": 2,
+                  "width": 4,
+                  "height": 2
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.compute/virtualmachines",
+                      "name": "Network In Total",
+                      "aggregationType": "sum",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.compute/virtualmachines/ubuntuvm"
+                      }
+                    },
+                    {
+                      "namespace": "microsoft.compute/virtualmachines",
+                      "name": "Network Out Total",
+                      "aggregationType": "sum",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.compute/virtualmachines/ubuntuvm"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "area",
+                  "options": {}
+                },
+                "title": "Network In & Out Total",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 15,
+                  "y": 5,
+                  "width": 8,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "name": "Disk Read Bytes",
+                      "aggregationType": "sum",
+                      "namespace": "microsoft.compute/virtualmachines",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourceGroups/work-branch-test/providers/Microsoft.Compute/virtualMachines/ubuntuVM"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {}
+                },
+                "title": "Sum Disk Read Bytes for ubuntuVM",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 23,
+                  "y": 5,
+                  "width": 5,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "source": "inline",
+                  "content": ""
+                },
+                "title": "storagevt5pibnmicvle",
+                "subtitle": "storagevt5pibnmicvle's General Info",
+                "type": "MarkdownTile",
+                "layout": {
+                  "x": 3,
+                  "y": 8,
+                  "width": 4,
+                  "height": 2
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "name": "UsedCapacity",
+                      "aggregationType": "avg",
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourceGroups/work-branch-test/providers/Microsoft.Storage/storageAccounts/storagevt5pibnmicvle"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "area",
+                  "options": {}
+                },
+                "title": "Avg Used capacity for storagevt5pibnmicvle",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 7,
+                  "y": 12,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "Egress",
+                      "aggregationType": "sum",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storagevt5pibnmicvle"
+                      }
+                    },
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "Ingress",
+                      "aggregationType": "sum",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storagevt5pibnmicvle"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "bar",
+                  "options": {}
+                },
+                "title": "Egress & Ingress",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 11,
+                  "y": 8,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "SuccessE2ELatency",
+                      "aggregationType": "max",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storagevt5pibnmicvle"
+                      }
+                    },
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "SuccessE2ELatency",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storagevt5pibnmicvle"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {}
+                },
+                "title": " E2E Latency ",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 11,
+                  "y": 12,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts/blobservices",
+                      "name": "BlobCount",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storagevt5pibnmicvle"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime_0",
+                    "endTime_0",
+                    "timeGranularity_0"
+                  ]
+                },
+                "visualization": {
+                  "type": "card",
+                  "options": {}
+                },
+                "title": "Blob Count",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 3,
+                  "y": 10,
+                  "width": 4,
+                  "height": 2
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "Availability",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime",
+                    "endTime",
+                    "timeGranularity"
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {
+                    "hideTileTitle": false,
+                    "table__enableFormatting": true,
+                    "table__enableRenderLinks": true,
+                    "table__renderLinksForColumns": [],
+                    "colorRules": [],
+                    "colorRulesDisabled": true,
+                    "colorStyle": "light",
+                    "crossFilter": [],
+                    "crossFilterDisabled": false,
+                    "drillthrough": [],
+                    "drillthroughDisabled": false
+                  }
+                },
+                "title": "Average Availability",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 7,
+                  "y": 0,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts/blobservices",
+                      "name": "BlobCount",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storage2nadl6mxkbuvu"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime",
+                    "endTime",
+                    "timeGranularity",
+                    ""
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {
+                    "hideTileTitle": false,
+                    "table__enableFormatting": true,
+                    "table__enableRenderLinks": true,
+                    "table__renderLinksForColumns": [],
+                    "colorRules": [],
+                    "colorRulesDisabled": true,
+                    "colorStyle": "light",
+                    "crossFilter": [],
+                    "crossFilterDisabled": false,
+                    "drillthrough": [],
+                    "drillthroughDisabled": false
+                  }
+                },
+                "title": "Blob Count Chart",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 3,
+                  "y": 4,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts/blobservices",
+                      "name": "BlobCount",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storagevt5pibnmicvle"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime",
+                    "endTime",
+                    "timeGranularity"
+                  ]
+                },
+                "visualization": {
+                  "type": "timechart",
+                  "options": {
+                    "hideTileTitle": false,
+                    "table__enableFormatting": true,
+                    "table__enableRenderLinks": true,
+                    "table__renderLinksForColumns": [],
+                    "colorRules": [],
+                    "colorRulesDisabled": true,
+                    "colorStyle": "light",
+                    "crossFilter": [],
+                    "crossFilterDisabled": false,
+                    "drillthrough": [],
+                    "drillthroughDisabled": false
+                  }
+                },
+                "title": "Blobs Count Chart",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 3,
+                  "y": 12,
+                  "width": 4,
+                  "height": 4
+                }
+              },
+              {
+                "data": {
+                  "kind": "app-insights",
+                  "metrics": [
+                    {
+                      "namespace": "microsoft.storage/storageaccounts",
+                      "name": "Availability",
+                      "aggregationType": "avg",
+                      "resourceMetadata": {
+                        "id": "/subscriptions/3b6ddfaa-2788-46ca-b82d-c51e30360c61/resourcegroups/work-branch-test/providers/microsoft.storage/storageaccounts/storagevt5pibnmicvle"
+                      }
+                    }
+                  ],
+                  "usedParameters": [
+                    "startTime",
+                    "endTime",
+                    "timeGranularity"
+                  ]
+                },
+                "visualization": {
+                  "type": "line",
+                  "options": {
+                    "hideTileTitle": false,
+                    "table__enableFormatting": true,
+                    "table__enableRenderLinks": true,
+                    "table__renderLinksForColumns": [],
+                    "colorRules": [],
+                    "colorRulesDisabled": true,
+                    "colorStyle": "light",
+                    "crossFilter": [],
+                    "crossFilterDisabled": false,
+                    "drillthrough": [],
+                    "drillthroughDisabled": false
+                  }
+                },
+                "title": "Average Availability",
+                "subtitle": "",
+                "type": "QueryTile",
+                "layout": {
+                  "x": 7,
+                  "y": 8,
+                  "width": 4,
+                  "height": 4
+                }
+              }
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "title": "Time range 0",
+            "kind": "timeRange",
+            "parameterNames": [
+              "startTime_0",
+              "endTime_0"
+            ],
+            "defaultValues": [
+              "last12Hours"
+            ],
+            "showOnPages": [
+              "0"
+            ]
+          },
+          {
+            "title": "Time granularity 0",
+            "kind": "timeGranularity",
+            "parameterNames": [
+              "timeGranularity_0",
+              ""
+            ],
+            "defaultValues": [
+              "auto"
+            ],
+            "showOnPages": [
+              "0"
+            ]
+          },
+          {
+            "title": "Time range",
+            "kind": "timeRange",
+            "parameterNames": [
+              "startTime",
+              "endTime"
+            ],
+            "defaultValues": [
+              "last4Hours"
+            ],
+            "showOnPages": [
+              "0"
+            ]
+          },
+          {
+            "title": "Time granularity",
+            "kind": "timeGranularity",
+            "parameterNames": [
+              "timeGranularity",
+              ""
+            ],
+            "defaultValues": [
+              "1Hour"
+            ],
+            "showOnPages": [
+              "0"
+            ]
+          }
+        ],
+        "provisioningState": "Succeeded"
+      }
+    }
+  ]
+}
